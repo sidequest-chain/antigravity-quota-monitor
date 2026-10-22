@@ -103,7 +103,14 @@ cargo build --release
 Start-Process .\target\release\antigravity-quota-monitor.exe
 ```
 
-The compiled executable (`target\release\antigravity-quota-monitor.exe`) is self-contained (the HTML/CSS/JS frontend is embedded into the binary at compile time by Tauri).
+The compiled executable (`target\release\antigravity-quota-monitor.exe`) is self-contained (the HTML/CSS/JS frontend and all 12 locale JSON files are embedded into the binary at compile time by Tauri).
+
+### Automated GitHub Actions Builds & Releases
+
+The repository includes an automated GitHub Actions pipeline (`.github/workflows/build.yml`) running on `windows-latest`:
+
+- **On every push or pull request to `main`:** Compiles the stripped Windows x64 portable executable (`antigravity-quota-monitor-windows-x64.exe`), generates its SHA-256 checksum (`SHA256SUMS.txt`), and attaches both as downloadable workflow artifacts.
+- **On every version tag (`v*`, e.g., `v0.1.0`):** Automatically publishes a GitHub Release containing the prebuilt `.exe` binary and `SHA256SUMS.txt` so end users can download the executable without installing the Rust toolchain locally.
 
 ---
 
