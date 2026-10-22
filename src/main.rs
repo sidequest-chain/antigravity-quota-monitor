@@ -9,6 +9,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::collections::HashSet;
 use std::fs;
+use std::os::windows::process::CommandExt;
 use std::path::PathBuf;
 use std::process::Command;
 use std::sync::Arc;
@@ -23,9 +24,57 @@ use windows_sys::Win32::Security::Credentials::{
     CredFree, CredReadW, CREDENTIALW, CRED_TYPE_GENERIC,
 };
 
-const USER_AGENT: &str = "antigravity/cli (os_type=windows; arch=amd64; auth_method=consumer)";
 const API_BASE: &str = "https://daily-cloudcode-pa.googleapis.com";
 const AGY_CRED_TARGET: &str = "gemini:antigravity";
+const CREATE_NO_WINDOW: u32 = 0x08000000;
+const GWL_EXSTYLE: i32 = -20;
+const WS_EX_LAYERED: i32 = 0x00080000;
+const LWA_ALPHA: u32 = 0x00000002;
+const VK_LBUTTON: i32 = 0x01;
+const DWMWA_WINDOW_CORNER_PREFERENCE: u32 = 33;
+const DWMWCP_ROUND: u32 = 2;
+
+#[link(name = "user32")]
+extern "system" {
+    fn GetWindowLongW(hwnd: isize, index: i32) -> i32;
+    fn SetWindowLongW(hwnd: isize, index: i32, new_long: i32) -> i32;
+    fn SetLayeredWindowAttributes(hwnd: isize, cr_key: u32, alpha: u8, flags: u32) -> i32;
+    fn GetAsyncKeyState(vkey: i32) -> i16;
+}
+
+#[link(name = "dwmapi")]
+extern "system" {
+    fn DwmSetWindowAttribute(hwnd: isize, attr: u32, pv_attr: *const u32, cb_attr: u32) -> i32;
+}
+
+fn apply_hwnd_opacity(hwnd: isize, percent: u8) {
+    unsafe {
+        let ex = GetWindowLongW(hwnd, GWL_EXSTYLE);
+        if percent >= 100 {
+            if (ex & WS_EX_LAYERED) != 0 {
+                SetWindowLongW(hwnd, GWL_EXSTYLE, ex & !WS_EX_LAYERED);
+            }
+        } else {
+            if (ex & WS_EX_LAYERED) == 0 {
+                SetWindowLongW(hwnd, GWL_EXSTYLE, ex | WS_EX_LAYERED);
+            }
+            let alpha = ((percent as u32 * 255) / 100).clamp(90, 255) as u8;
+            SetLayeredWindowAttributes(hwnd, 0, alpha, LWA_ALPHA);
+        }
+    }
+}
+
+fn apply_hwnd_round_corners(hwnd: isize) {
+    unsafe {
+        let pref = DWMWCP_ROUND;
+        let _ = DwmSetWindowAttribute(
+            hwnd,
+            DWMWA_WINDOW_CORNER_PREFERENCE,
+            &pref as *const u32,
+            std::mem::size_of::<u32>() as u32,
+        );
+    }
+}
 
 struct TrayItems {
     toggle: MenuItem<Wry>,
@@ -37,6 +86,8 @@ struct AppState {
     cached_token: Mutex<Option<(String, String, Instant)>>, // (access_token, email, expires_at)
     cached_project_id: Mutex<Option<String>>,
     cached_oauth_client: Mutex<Option<(String, String)>>, // Dynamically read from local CLI/IDE binary
+    cached_user_agent: Mutex<Option<String>>,             // Dynamically detected via `agy.exe --version`
+    window_opacity: Mutex<u8>,
     tray_items: Mutex<Option<TrayItems>>,
     http: reqwest::Client,
 }
@@ -192,6 +243,71 @@ fn is_antigravity_installed() -> bool {
         }
     }
     false
+}
+
+/// Dynamically detects the installed Antigravity CLI version via `agy.exe --version` (or IDE package.json)
+/// and constructs the User-Agent string without hardcoding version numbers or changelists.
+async fn resolve_user_agent(state: &AppState) -> String {
+    {
+        let guard = state.cached_user_agent.lock().await;
+        if let Some(ref ua) = *guard {
+            return ua.clone();
+        }
+    }
+
+    let mut version = String::new();
+    if let Ok(local_app_data) = std::env::var("LOCALAPPDATA") {
+        let base = PathBuf::from(&local_app_data);
+        let cli_bin = base.join("agy").join("bin").join("agy.exe");
+        if cli_bin.is_file() {
+            if let Ok(out) = Command::new(&cli_bin)
+                .arg("--version")
+                .creation_flags(CREATE_NO_WINDOW)
+                .output()
+            {
+                let v = String::from_utf8_lossy(&out.stdout).trim().to_string();
+                if !v.is_empty() && v.chars().all(|c| c.is_ascii_alphanumeric() || c == '.' || c == '-') {
+                    version = v;
+                }
+            }
+        }
+        if version.is_empty() {
+            let pkg_path = base
+                .join("Programs")
+                .join("Antigravity-IDE")
+                .join("resources")
+                .join("app")
+                .join("package.json");
+            if let Ok(raw) = fs::read_to_string(pkg_path) {
+                if let Ok(val) = serde_json::from_str::<Value>(&raw) {
+                    if let Some(v) = val.get("version").and_then(|v| v.as_str()) {
+                        version = v.trim().to_string();
+                    }
+                }
+            }
+        }
+    }
+
+    let arch = match std::env::consts::ARCH {
+        "x86_64" => "amd64",
+        "aarch64" => "arm64",
+        other => other,
+    };
+    let os_type = std::env::consts::OS;
+    let ver_segment = if version.is_empty() {
+        String::new()
+    } else {
+        format!("/{}", version)
+    };
+
+    let ua = format!(
+        "antigravity/cli{} (aidev_client; os_type={}; arch={}; auth_method=consumer)",
+        ver_segment, os_type, arch
+    );
+
+    let mut guard = state.cached_user_agent.lock().await;
+    *guard = Some(ua.clone());
+    ua
 }
 
 /// Dynamically extracts OAuth Client IDs and Secrets from the locally installed Antigravity CLI/IDE binary
@@ -665,11 +781,13 @@ async fn fetch_usage_internal(state: &AppState) -> Result<UsageSnapshot, String>
         })
     };
 
+    let user_agent = resolve_user_agent(state).await;
+
     let mut assist_resp = state
         .http
         .post(&assist_url)
         .header("Authorization", format!("Bearer {}", token))
-        .header("User-Agent", USER_AGENT)
+        .header("User-Agent", &user_agent)
         .json(&assist_body)
         .send()
         .await
@@ -682,7 +800,7 @@ async fn fetch_usage_internal(state: &AppState) -> Result<UsageSnapshot, String>
             .http
             .post(&assist_url)
             .header("Authorization", format!("Bearer {}", token))
-            .header("User-Agent", USER_AGENT)
+            .header("User-Agent", &user_agent)
             .json(&assist_body)
             .send()
             .await
@@ -708,14 +826,14 @@ async fn fetch_usage_internal(state: &AppState) -> Result<UsageSnapshot, String>
             .http
             .post(&quota_url)
             .header("Authorization", format!("Bearer {}", token))
-            .header("User-Agent", USER_AGENT)
+            .header("User-Agent", &user_agent)
             .json(&json!({ "project": project_id }))
             .send(),
         state
             .http
             .post(&models_url)
             .header("Authorization", format!("Bearer {}", token))
-            .header("User-Agent", USER_AGENT)
+            .header("User-Agent", &user_agent)
             .json(&json!({ "project": project_id }))
             .send()
     );
@@ -815,10 +933,15 @@ async fn fetch_usage_internal(state: &AppState) -> Result<UsageSnapshot, String>
 
     // 2. Parse active recommended models from agentModelSorts
     let mut allowed_ids: Vec<String> = Vec::new();
-    if let Some(groups) = models_val
-        .pointer("/agentModelSorts/groups")
+    let sorts_groups = models_val
+        .pointer("/agentModelSorts/0/groups")
         .and_then(|g| g.as_array())
-    {
+        .or_else(|| {
+            models_val
+                .pointer("/agentModelSorts/groups")
+                .and_then(|g| g.as_array())
+        });
+    if let Some(groups) = sorts_groups {
         for g in groups {
             if let Some(ids) = g.get("modelIds").and_then(|m| m.as_array()) {
                 for id_val in ids {
@@ -849,6 +972,18 @@ async fn fetch_usage_internal(state: &AppState) -> Result<UsageSnapshot, String>
             if !allowed_set.is_empty() && !allowed_set.contains(&model_id) {
                 continue;
             }
+            let family_key = if model_id.starts_with("gemini-4-argon") {
+                "gemini_4_argon".to_string()
+            } else if model_id.starts_with("gemini-3.8-flash") {
+                "gemini_3_8_flash".to_string()
+            } else if model_id.starts_with("claude-opus") {
+                "claude_opus".to_string()
+            } else if model_id.starts_with("claude-sonnet") {
+                "claude_sonnet".to_string()
+            } else {
+                continue;
+            };
+
             let Some(display_name) = m_val
                 .get("displayName")
                 .and_then(|v| v.as_str())
@@ -870,18 +1005,6 @@ async fn fetch_usage_internal(state: &AppState) -> Result<UsageSnapshot, String>
                 .and_then(|v| v.as_str())
                 .map(|s| s.to_string());
             let reset_seconds = compute_reset_seconds(reset_time.as_deref());
-
-            let family_key = if model_id.starts_with("gemini-4-argon") {
-                "gemini_4_argon".to_string()
-            } else if model_id.starts_with("gemini-3.8-flash") {
-                "gemini_3_8_flash".to_string()
-            } else if model_id.starts_with("claude-opus") {
-                "claude_opus".to_string()
-            } else if model_id.starts_with("claude-sonnet") {
-                "claude_sonnet".to_string()
-            } else {
-                "other".to_string()
-            };
 
             models.push(ModelQuotaView {
                 id: model_id,
@@ -935,6 +1058,55 @@ async fn set_tray_labels(
 }
 
 #[tauri::command]
+async fn set_window_opacity(
+    window: tauri::WebviewWindow,
+    state: State<'_, Arc<AppState>>,
+    percent: u8,
+) -> Result<(), String> {
+    let clamped = percent.clamp(45, 100);
+    {
+        let mut guard = state.window_opacity.lock().await;
+        *guard = clamped;
+    }
+    if let Ok(hwnd) = window.hwnd() {
+        apply_hwnd_opacity(hwnd.0 as isize, clamped);
+    }
+    Ok(())
+}
+
+#[tauri::command]
+async fn start_window_drag(
+    window: tauri::WebviewWindow,
+    state: State<'_, Arc<AppState>>,
+) -> Result<(), String> {
+    let hwnd_val = window.hwnd().map(|h| h.0 as isize).unwrap_or(0);
+    if hwnd_val != 0 {
+        // Temporarily switch window to 100% opaque hardware mode while dragging
+        apply_hwnd_opacity(hwnd_val, 100);
+    }
+
+    let _ = window.start_dragging();
+
+    if hwnd_val != 0 {
+        let state_clone = Arc::clone(&state);
+        tokio::spawn(async move {
+            loop {
+                tokio::time::sleep(Duration::from_millis(25)).await;
+                let down = unsafe { (GetAsyncKeyState(VK_LBUTTON) as u16 & 0x8000) != 0 };
+                if !down {
+                    break;
+                }
+            }
+            let target_pct = *state_clone.window_opacity.lock().await;
+            if target_pct < 100 {
+                apply_hwnd_opacity(hwnd_val, target_pct);
+            }
+        });
+    }
+    Ok(())
+}
+
+#[tauri::command]
 async fn launch_antigravity(state: State<'_, Arc<AppState>>) -> Result<UsageSnapshot, String> {
     {
         let mut guard = state.cached_token.lock().await;
@@ -973,6 +1145,8 @@ fn main() {
         cached_token: Mutex::new(None),
         cached_project_id: Mutex::new(None),
         cached_oauth_client: Mutex::new(None),
+        cached_user_agent: Mutex::new(None),
+        window_opacity: Mutex::new(92),
         tray_items: Mutex::new(None),
         http,
     });
@@ -984,9 +1158,19 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             get_usage,
             launch_antigravity,
-            set_tray_labels
+            set_tray_labels,
+            set_window_opacity,
+            start_window_drag
         ])
         .setup(move |app| {
+            if let Some(w) = app.get_webview_window("main") {
+                if let Ok(hwnd) = w.hwnd() {
+                    let h = hwnd.0 as isize;
+                    apply_hwnd_round_corners(h);
+                    apply_hwnd_opacity(h, 92);
+                }
+            }
+
             let show_i = MenuItem::with_id(app, "toggle", "...", true, None::<&str>)?;
             let top_i = MenuItem::with_id(app, "top", "...", true, None::<&str>)?;
             let quit_i = MenuItem::with_id(app, "quit", "...", true, None::<&str>)?;

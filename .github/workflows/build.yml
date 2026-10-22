@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
+    paths:
+      - "Cargo.toml"
+      - "tauri.conf.json"
     tags:
       - "v*"
-  pull_request:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
@@ -26,29 +26,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install Rust stable toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: x86_64-pc-windows-msvc
-
-      - name: Cache Cargo registry and target directory
-        uses: Swatinem/rust-cache@v2
-
-      - name: Build release binary
+      - name: Check version and whether release already exists
+        id: check
         shell: pwsh
         env:
-          RUSTFLAGS: "--remap-path-prefix ${{ github.workspace }}=/app -C link-arg=/PDBALTPATH:%_PDB%"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cargo build --release --locked
-
-      - name: Package portable executable, checksum, and version tag
-        id: pkg
-        shell: pwsh
-        run: |
-          New-Item -ItemType Directory -Force -Path dist | Out-Null
-          Copy-Item "target/release/antigravity-quota-monitor.exe" "dist/antigravity-quota-monitor-windows-x64.exe"
-          $hash = (Get-FileHash "dist/antigravity-quota-monitor-windows-x64.exe" -Algorithm SHA256).Hash.ToLower()
-          "$hash  antigravity-quota-monitor-windows-x64.exe" | Out-File -FilePath "dist/SHA256SUMS.txt" -Encoding utf8
           $cargoToml = Get-Content "Cargo.toml" -Raw
           if ($cargoToml -match '(?m)^version\s*=\s*"([^"]+)"') {
             $ver = "v" + $Matches[1]
@@ -56,9 +39,53 @@ jobs:
             $ver = "v0.1.0"
           }
           "tag=$ver" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-          Write-Host "Resolved release tag: $ver"
+          Write-Host "Target release version: $ver"
+
+          if ("${{ github.event_name }}" -eq "workflow_dispatch" -or "${{ github.ref }}" -like "refs/tags/v*") {
+            "should_build=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            Write-Host "Manual dispatch or explicit tag push -> proceeding with build."
+            exit 0
+          }
+
+          # Check if a release with the compiled .exe already exists for this version
+          $assets = gh release view $ver --json assets --jq ".assets[].name" 2>$null
+          if ($LASTEXITCODE -eq 0 -and ($assets -match "antigravity-quota-monitor-windows-x64\.exe")) {
+            "should_build=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            Write-Host "Release $ver already has a built .exe asset. Skipping build (bump version in Cargo.toml or use Run workflow to rebuild)."
+          } else {
+            "should_build=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+            Write-Host "Release $ver does not have a built .exe yet -> proceeding with build."
+          }
+
+      - name: Install Rust stable toolchain
+        if: steps.check.outputs.should_build == 'true'
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Cache Cargo registry and target directory
+        if: steps.check.outputs.should_build == 'true'
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build release binary
+        if: steps.check.outputs.should_build == 'true'
+        shell: pwsh
+        env:
+          RUSTFLAGS: "--remap-path-prefix ${{ github.workspace }}=/app -C link-arg=/PDBALTPATH:%_PDB%"
+        run: |
+          cargo build --release --locked
+
+      - name: Package portable executable and checksum
+        if: steps.check.outputs.should_build == 'true'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist | Out-Null
+          Copy-Item "target/release/antigravity-quota-monitor.exe" "dist/antigravity-quota-monitor-windows-x64.exe"
+          $hash = (Get-FileHash "dist/antigravity-quota-monitor-windows-x64.exe" -Algorithm SHA256).Hash.ToLower()
+          "$hash  antigravity-quota-monitor-windows-x64.exe" | Out-File -FilePath "dist/SHA256SUMS.txt" -Encoding utf8
 
       - name: Upload build artifact
+        if: steps.check.outputs.should_build == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: antigravity-quota-monitor-windows-x64
@@ -68,11 +95,11 @@ jobs:
           if-no-files-found: error
 
       - name: Publish GitHub Release
-        if: github.event_name != 'pull_request'
+        if: steps.check.outputs.should_build == 'true'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ steps.pkg.outputs.tag }}
-          name: "Antigravity Quota Monitor ${{ steps.pkg.outputs.tag }}"
+          tag_name: ${{ steps.check.outputs.tag }}
+          name: "Antigravity Quota Monitor ${{ steps.check.outputs.tag }}"
           generate_release_notes: true
           files: |
             dist/antigravity-quota-monitor-windows-x64.exe

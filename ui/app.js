@@ -376,6 +376,18 @@ async function startGoogleLogin() {
 }
 
 // Event Listeners
+document.querySelector(".titlebar").addEventListener("mousedown", (e) => {
+  if (e.button === 0 && !e.target.closest(".controls")) {
+    invoke("start_window_drag");
+  }
+});
+
+compactView.addEventListener("mousedown", (e) => {
+  if (e.button === 0) {
+    invoke("start_window_drag");
+  }
+});
+
 btnRefresh.addEventListener("click", () => refreshUsage());
 btnGoogleLogin.addEventListener("click", () => startGoogleLogin());
 btnSwitchAccount.addEventListener("click", () => startGoogleLogin());
@@ -415,8 +427,8 @@ btnClose.addEventListener("click", async () => {
 });
 
 opacitySlider.addEventListener("input", (e) => {
-  const val = Number(e.target.value) / 100;
-  document.documentElement.style.setProperty("--bg-alpha", val.toString());
+  const pct = Number(e.target.value);
+  invoke("set_window_opacity", { percent: pct });
 });
 
 document.querySelectorAll(".tab").forEach((tabBtn) => {
@@ -430,8 +442,24 @@ document.querySelectorAll(".tab").forEach((tabBtn) => {
   });
 });
 
-// Initialize locales first, then load usage & start 60s auto-refresh
+// Initialize locales first, then load usage & start 5-minute (300s) auto-refresh
 initI18n().then(() => {
   refreshUsage();
-  setInterval(refreshUsage, 60000);
+  setInterval(refreshUsage, 300000);
+
+  // Locally decrement reset countdown timers once per minute without hitting the network
+  setInterval(() => {
+    if (!lastSnapshot || !lastSnapshot.authenticated) return;
+    for (const b of lastSnapshot.buckets || []) {
+      if (typeof b.resetSeconds === "number" && b.resetSeconds > 0) {
+        b.resetSeconds = Math.max(0, b.resetSeconds - 60);
+      }
+    }
+    for (const m of lastSnapshot.models || []) {
+      if (typeof m.resetSeconds === "number" && m.resetSeconds > 0) {
+        m.resetSeconds = Math.max(0, m.resetSeconds - 60);
+      }
+    }
+    renderSnapshot(lastSnapshot);
+  }, 60000);
 });
