@@ -41,13 +41,22 @@ jobs:
         run: |
           cargo build --release --locked
 
-      - name: Package portable executable and SHA-256 checksum
+      - name: Package portable executable, checksum, and version tag
+        id: pkg
         shell: pwsh
         run: |
           New-Item -ItemType Directory -Force -Path dist | Out-Null
           Copy-Item "target/release/antigravity-quota-monitor.exe" "dist/antigravity-quota-monitor-windows-x64.exe"
           $hash = (Get-FileHash "dist/antigravity-quota-monitor-windows-x64.exe" -Algorithm SHA256).Hash.ToLower()
           "$hash  antigravity-quota-monitor-windows-x64.exe" | Out-File -FilePath "dist/SHA256SUMS.txt" -Encoding utf8
+          $cargoToml = Get-Content "Cargo.toml" -Raw
+          if ($cargoToml -match '(?m)^version\s*=\s*"([^"]+)"') {
+            $ver = "v" + $Matches[1]
+          } else {
+            $ver = "v0.1.0"
+          }
+          "tag=$ver" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
+          Write-Host "Resolved release tag: $ver"
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -58,10 +67,12 @@ jobs:
             dist/SHA256SUMS.txt
           if-no-files-found: error
 
-      - name: Publish GitHub Release (on version tag v*)
-        if: startsWith(github.ref, 'refs/tags/v')
+      - name: Publish GitHub Release
+        if: github.event_name != 'pull_request'
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.pkg.outputs.tag }}
+          name: "Antigravity Quota Monitor ${{ steps.pkg.outputs.tag }}"
           generate_release_notes: true
           files: |
             dist/antigravity-quota-monitor-windows-x64.exe
