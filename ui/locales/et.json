@@ -1,0 +1,100 @@
+{
+  "appTitle": "Antigravity Quota Monitor",
+  "brandTitle": "Antigravity Quota",
+  "tooltips": {
+    "refresh": "Uuenda kohe",
+    "pin": "Alati peal (Always on Top)",
+    "compact": "Kompaktne mini-riba / Täisvaade",
+    "close": "Peida süsteemisalve (System Tray)",
+    "toggleMode": "Vaheta: Allesjäänud % vs Kasutatud %",
+    "resetTimer": "Aega kvoodi nullimiseni",
+    "accountConnected": "Ühendatud läbi: {source} (kliki, et uuesti kontrollida)",
+    "accountDisconnected": "Kliki, et avada Antigravity või kontrollida sessiooni",
+    "sessions": "Aktiivsed Antigravity CLI / ACP sessioonid",
+    "opacity": "Läbipaistvus",
+    "language": "Vali keel"
+  },
+  "tray": {
+    "toggle": "Näita / Peida monitor",
+    "top": "Alati peal (On/Off)",
+    "quit": "Sulge Antigravity Quota Monitor"
+  },
+  "tabs": {
+    "summary": "Kvoodid",
+    "models": "Mudelid",
+    "info": "Info"
+  },
+  "mode": {
+    "showPrefix": "Näita:",
+    "remaining": "Alles %",
+    "used": "Kasutatud %"
+  },
+  "status": {
+    "loading": "Laen Antigravity kvoodi infot...",
+    "notConnected": "Pole ühendatud",
+    "notSignedIn": "Pole sisse logitud",
+    "missingInstall": "Antigravity puudub",
+    "checkingSession": "Kontrollin Antigravity sessiooni...",
+    "noQuotas": "Kvoote ei leitud",
+    "noModels": "Mudeleid ei leitud",
+    "activeSessions": "{count} aktiivne"
+  },
+  "onboarding": {
+    "missingTitle": "Antigravity CLI / IDE on vajalik",
+    "missingDesc": "Arvutist ei leitud Antigravity CLI ega Antigravity IDE paigaldust. Palun paigalda Antigravity ja logi seal sisse.",
+    "missingAction": "Kontrolli uuesti",
+    "loginTitle": "Logi sisse Antigravitys",
+    "loginDesc": "See vidin loeb sinu kohalikku Antigravity CLI või IDE sessiooni ilma eraldi OAuth võtmeid küsimata.",
+    "loginAction": "Ava Antigravity / Kontrolli uuesti"
+  },
+  "groups": {
+    "gemini": "Gemini (4 Argon & 3.8 Flash)",
+    "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "other": "Kvoodigrupp"
+  },
+  "windows": {
+    "5h": "5-tunni limiit (5h)",
+    "weekly": "Nädala limiit (Weekly)"
+  },
+  "mini": {
+    "gemini_5h": "Gem 5h",
+    "gemini_weekly": "Gem Nd",
+    "claude_5h": "Claude 5h",
+    "claude_weekly": "Claude Nd"
+  },
+  "families": {
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "Muud mudelid"
+  },
+  "time": {
+    "none": "—",
+    "now": "kohe",
+    "daysHours": "{d}p {h}t",
+    "hoursMins": "{h}t {m}m",
+    "mins": "{m}m",
+    "secs": "{s}s"
+  },
+  "info": {
+    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutDesc": "Reaalajas töölauavidin Google Antigravity CLI ja IDE kvootide jälgimiseks. Ei sisalda sissekirjutatud OAuth saladusi ega kolmandate osapoolte servereid.",
+    "repoTitle": "Autor & Repositoorium",
+    "authorLabel": "Autor:",
+    "githubLabel": "GitHub:",
+    "licenseLabel": "Litsents:",
+    "connTitle": "Ühenduse info",
+    "sourceLabel": "Allikas:",
+    "accountLabel": "Konto:",
+    "projectLabel": "Projekt:",
+    "langTitle": "Keel / Language"
+  },
+  "errors": {
+    "ERR_NETWORK": "Võrguühenduse viga Google'i teenusega suhtlemisel.",
+    "ERR_TOKEN_REFRESH": "OAuth sessiooni uuendamine ebaõnnestus.",
+    "ERR_INVALID_OAUTH": "Vigane OAuth vastus.",
+    "ERR_CRED_NOT_FOUND": "Salvestatud sessiooni ei leitud.",
+    "UNKNOWN": "Ootamatu viga: {error}"
+  }
+}

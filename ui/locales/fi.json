@@ -1,0 +1,100 @@
+{
+  "appTitle": "Antigravity Quota Monitor",
+  "brandTitle": "Antigravity Quota",
+  "tooltips": {
+    "refresh": "Päivitä nyt",
+    "pin": "Aina päällimmäisenä (Always on Top)",
+    "compact": "Kompakti minipalkki / Täysnäkymä",
+    "close": "Piilota ilmoitusalueelle (System Tray)",
+    "toggleMode": "Vaihda: Jäljellä % vs Käytetty %",
+    "resetTimer": "Aika kiintiön nollautumiseen",
+    "accountConnected": "Yhdistetty: {source} (klikkaa tarkistaaksesi)",
+    "accountDisconnected": "Klikkaa avataksesi Antigravityn tai tarkistaaksesi istunnon",
+    "sessions": "Aktiiviset Antigravity CLI / ACP -istunnot",
+    "opacity": "Läpinäkyvyys",
+    "language": "Valitse kieli"
+  },
+  "tray": {
+    "toggle": "Näytä / Piilota monitori",
+    "top": "Aina päällimmäisenä (On/Off)",
+    "quit": "Sulje Antigravity Quota Monitor"
+  },
+  "tabs": {
+    "summary": "Kiintiöt",
+    "models": "Mallit",
+    "info": "Tiedot"
+  },
+  "mode": {
+    "showPrefix": "Näytä:",
+    "remaining": "Jäljellä %",
+    "used": "Käytetty %"
+  },
+  "status": {
+    "loading": "Ladataan Antigravity-kiintiötietoja...",
+    "notConnected": "Ei yhdistetty",
+    "notSignedIn": "Ei kirjautunut",
+    "missingInstall": "Antigravity puuttuu",
+    "checkingSession": "Tarkistetaan Antigravity-istuntoa...",
+    "noQuotas": "Kiintiöitä ei löytynyt",
+    "noModels": "Malleja ei löytynyt",
+    "activeSessions": "{count} aktiivinen"
+  },
+  "onboarding": {
+    "missingTitle": "Antigravity CLI / IDE vaaditaan",
+    "missingDesc": "Tietokoneelta ei löytynyt Antigravity CLI- tai Antigravity IDE -asennusta. Asenna Antigravity ja kirjaudu sisään.",
+    "missingAction": "Tarkista uudelleen",
+    "loginTitle": "Kirjaudu Antigravityyn",
+    "loginDesc": "Tämä pienoisohjelma lukee paikallisen Antigravity CLI- tai IDE-istuntosi ilman erillisiä OAuth-avaimia.",
+    "loginAction": "Avaa Antigravity / Tarkista"
+  },
+  "groups": {
+    "gemini": "Gemini (4 Argon & 3.8 Flash)",
+    "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "other": "Kiintiöryhmä"
+  },
+  "windows": {
+    "5h": "5 tunnin raja (5h)",
+    "weekly": "Viikkoraja (Weekly)"
+  },
+  "mini": {
+    "gemini_5h": "Gem 5h",
+    "gemini_weekly": "Gem Vk",
+    "claude_5h": "Claude 5h",
+    "claude_weekly": "Claude Vk"
+  },
+  "families": {
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "Muut mallit"
+  },
+  "time": {
+    "none": "—",
+    "now": "nyt",
+    "daysHours": "{d}pv {h}t",
+    "hoursMins": "{h}t {m}m",
+    "mins": "{m}m",
+    "secs": "{s}s"
+  },
+  "info": {
+    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutDesc": "Reaaliaikainen työpöytäohjelma Google Antigravity CLI- ja IDE-kiintiöiden seurantaan. Ei sisällä kiinteitä OAuth-salaisuuksia eikä kolmannen osapuolen palvelimia.",
+    "repoTitle": "Tekijä ja arkisto",
+    "authorLabel": "Tekijä:",
+    "githubLabel": "GitHub:",
+    "licenseLabel": "Lisenssi:",
+    "connTitle": "Yhteystiedot",
+    "sourceLabel": "Lähde:",
+    "accountLabel": "Tili:",
+    "projectLabel": "Projekti:",
+    "langTitle": "Kieli / Language"
+  },
+  "errors": {
+    "ERR_NETWORK": "Verkkovirhe yhteydessä Googlen palveluihin.",
+    "ERR_TOKEN_REFRESH": "OAuth-istunnon päivitys epäonnistui.",
+    "ERR_INVALID_OAUTH": "Virheellinen OAuth-vastaus.",
+    "ERR_CRED_NOT_FOUND": "Tallennettua istuntoa ei löytynyt.",
+    "UNKNOWN": "Odottamaton virhe: {error}"
+  }
+}

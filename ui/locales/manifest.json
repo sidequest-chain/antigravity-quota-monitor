@@ -1,0 +1,17 @@
+{
+  "defaultLocale": "en-US",
+  "locales": [
+    { "code": "et", "label": "Eesti (ET)" },
+    { "code": "en-US", "label": "English (US)" },
+    { "code": "en-GB", "label": "English (UK)" },
+    { "code": "lv", "label": "Latviešu (LV)" },
+    { "code": "lt", "label": "Lietuvių (LT)" },
+    { "code": "fi", "label": "Suomi (FI)" },
+    { "code": "de", "label": "Deutsch (DE)" },
+    { "code": "sv", "label": "Svenska (SV)" },
+    { "code": "pl", "label": "Polski (PL)" },
+    { "code": "fr", "label": "Français (FR)" },
+    { "code": "es", "label": "Español (ES)" },
+    { "code": "uk", "label": "Українська (UK)" }
+  ]
+}

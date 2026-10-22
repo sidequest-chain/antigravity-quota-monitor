@@ -1,0 +1,100 @@
+{
+  "appTitle": "Antigravity Quota Monitor",
+  "brandTitle": "Antigravity Quota",
+  "tooltips": {
+    "refresh": "Atjaunināt tagad",
+    "pin": "Vienmēr virspusē (Always on Top)",
+    "compact": "Kompakta josla / Pilns skats",
+    "close": "Paslēpt sistēmas teknē (System Tray)",
+    "toggleMode": "Pārslēgt: Atlicis % vai Izlietots %",
+    "resetTimer": "Laiks līdz kvotas atiestatīšanai",
+    "accountConnected": "Savienots caur: {source} (noklikšķiniet, lai pārbaudītu)",
+    "accountDisconnected": "Noklikšķiniet, lai atvērtu Antigravity vai pārbaudītu sesiju",
+    "sessions": "Aktīvās Antigravity CLI / ACP sesijas",
+    "opacity": "Caurspīdīgums",
+    "language": "Izvēlieties valodu"
+  },
+  "tray": {
+    "toggle": "Rādīt / Paslēpt monitoru",
+    "top": "Vienmēr virspusē (On/Off)",
+    "quit": "Aizvērt Antigravity Quota Monitor"
+  },
+  "tabs": {
+    "summary": "Kvotas",
+    "models": "Modeļi",
+    "info": "Info"
+  },
+  "mode": {
+    "showPrefix": "Rādīt:",
+    "remaining": "Atlicis %",
+    "used": "Izlietots %"
+  },
+  "status": {
+    "loading": "Ielādē Antigravity kvotu datus...",
+    "notConnected": "Nav savienots",
+    "notSignedIn": "Nav pieslēdzies",
+    "missingInstall": "Antigravity nav atrasts",
+    "checkingSession": "Pārbauda Antigravity sesiju...",
+    "noQuotas": "Kvotas nav atrastas",
+    "noModels": "Modeļi nav atrasti",
+    "activeSessions": "{count} aktīvas"
+  },
+  "onboarding": {
+    "missingTitle": "Nepieciešams Antigravity CLI / IDE",
+    "missingDesc": "Šajā datorā netika atrasts ne Antigravity CLI, ne Antigravity IDE. Lūdzu, instalējiet Antigravity ja pieslēdzieties tajā.",
+    "missingAction": "Pārbaudīt vēlreiz",
+    "loginTitle": "Pieslēdzieties Antigravity",
+    "loginDesc": "Šis logrīks nolasa jūsu lokālo Antigravity CLI vai IDE sesiju bez atsevišķām OAuth atslēgām.",
+    "loginAction": "Atvērt Antigravity / Pārbaudīt"
+  },
+  "groups": {
+    "gemini": "Gemini (4 Argon & 3.8 Flash)",
+    "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "other": "Kvotu grupa"
+  },
+  "windows": {
+    "5h": "5 stundu limits (5h)",
+    "weekly": "Nedēļas limits (Weekly)"
+  },
+  "mini": {
+    "gemini_5h": "Gem 5h",
+    "gemini_weekly": "Gem Ned",
+    "claude_5h": "Claude 5h",
+    "claude_weekly": "Claude Ned"
+  },
+  "families": {
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "Citi modeļi"
+  },
+  "time": {
+    "none": "—",
+    "now": "tagad",
+    "daysHours": "{d}d {h}st",
+    "hoursMins": "{h}st {m}m",
+    "mins": "{m}m",
+    "secs": "{s}s"
+  },
+  "info": {
+    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutDesc": "Reāllaika darbvirsmas logrīks Google Antigravity CLI un IDE kvotu uzraudzībai. Nesatur iebūvētus OAuth noslēpumus vai trešo pušu serverus.",
+    "repoTitle": "Autors un repozitorijs",
+    "authorLabel": "Autors:",
+    "githubLabel": "GitHub:",
+    "licenseLabel": "Licence:",
+    "connTitle": "Savienojuma informācija",
+    "sourceLabel": "Avots:",
+    "accountLabel": "Konts:",
+    "projectLabel": "Projekts:",
+    "langTitle": "Valoda / Language"
+  },
+  "errors": {
+    "ERR_NETWORK": "Tīkla kļūda, sazinoties ar Google pakalpojumiem.",
+    "ERR_TOKEN_REFRESH": "Neizdevās atjaunināt OAuth sesijas marķieri.",
+    "ERR_INVALID_OAUTH": "Nederīga OAuth atbilde.",
+    "ERR_CRED_NOT_FOUND": "Saglabātā sesija nav atrasta.",
+    "UNKNOWN": "Neparedzēta kļūda: {error}"
+  }
+}

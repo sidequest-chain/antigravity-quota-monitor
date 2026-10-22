@@ -1,0 +1,100 @@
+{
+  "appTitle": "Antigravity Quota Monitor",
+  "brandTitle": "Antigravity Quota",
+  "tooltips": {
+    "refresh": "Refresh now",
+    "pin": "Always on Top",
+    "compact": "Compact mini-bar / Full view",
+    "close": "Minimise to System Tray",
+    "toggleMode": "Switch: Remaining % vs Used %",
+    "resetTimer": "Time until quota reset",
+    "accountConnected": "Connected via: {source} (click to re-check)",
+    "accountDisconnected": "Click to launch Antigravity or re-check session",
+    "sessions": "Active Antigravity CLI / ACP sessions",
+    "opacity": "Window opacity",
+    "language": "Select language"
+  },
+  "tray": {
+    "toggle": "Show / Hide Monitor",
+    "top": "Always on Top (On/Off)",
+    "quit": "Quit Antigravity Quota Monitor"
+  },
+  "tabs": {
+    "summary": "Quotas",
+    "models": "Models",
+    "info": "Info"
+  },
+  "mode": {
+    "showPrefix": "Show:",
+    "remaining": "Left %",
+    "used": "Used %"
+  },
+  "status": {
+    "loading": "Loading Antigravity quota status...",
+    "notConnected": "Not connected",
+    "notSignedIn": "Not signed in",
+    "missingInstall": "Antigravity missing",
+    "checkingSession": "Checking Antigravity session...",
+    "noQuotas": "No quotas found",
+    "noModels": "No models found",
+    "activeSessions": "{count} active"
+  },
+  "onboarding": {
+    "missingTitle": "Antigravity CLI / IDE Required",
+    "missingDesc": "Neither Antigravity CLI nor Antigravity IDE was found on this computer. Please install Antigravity and sign in there first.",
+    "missingAction": "Check Again",
+    "loginTitle": "Sign In to Antigravity",
+    "loginDesc": "This monitor reads your local Antigravity CLI or IDE session directly without requesting separate OAuth keys.",
+    "loginAction": "Open Antigravity / Re-check"
+  },
+  "groups": {
+    "gemini": "Gemini (4 Argon & 3.8 Flash)",
+    "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "other": "Quota Group"
+  },
+  "windows": {
+    "5h": "5-Hour Limit (5h)",
+    "weekly": "Weekly Limit (7d)"
+  },
+  "mini": {
+    "gemini_5h": "Gem 5h",
+    "gemini_weekly": "Gem Wk",
+    "claude_5h": "Claude 5h",
+    "claude_weekly": "Claude Wk"
+  },
+  "families": {
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "Other Models"
+  },
+  "time": {
+    "none": "—",
+    "now": "now",
+    "daysHours": "{d}d {h}h",
+    "hoursMins": "{h}h {m}m",
+    "mins": "{m}m",
+    "secs": "{s}s"
+  },
+  "info": {
+    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutDesc": "Real-time desktop widget for tracking Google Antigravity CLI and IDE quotas. Contains zero embedded OAuth secrets and zero third-party servers.",
+    "repoTitle": "Author & Repository",
+    "authorLabel": "Author:",
+    "githubLabel": "GitHub:",
+    "licenseLabel": "Licence:",
+    "connTitle": "Connection Details",
+    "sourceLabel": "Source:",
+    "accountLabel": "Account:",
+    "projectLabel": "Project:",
+    "langTitle": "Language"
+  },
+  "errors": {
+    "ERR_NETWORK": "Network error whilst communicating with Google services.",
+    "ERR_TOKEN_REFRESH": "Failed to refresh OAuth session token.",
+    "ERR_INVALID_OAUTH": "Invalid OAuth token response.",
+    "ERR_CRED_NOT_FOUND": "Stored session credential not found.",
+    "UNKNOWN": "Unexpected error: {error}"
+  }
+}

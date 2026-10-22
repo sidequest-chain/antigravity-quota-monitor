@@ -1,0 +1,100 @@
+{
+  "appTitle": "Antigravity Quota Monitor",
+  "brandTitle": "Antigravity Quota",
+  "tooltips": {
+    "refresh": "Оновити зараз",
+    "pin": "Завжди зверху (Always on Top)",
+    "compact": "Компактна панель / Повний вигляд",
+    "close": "Згорнути в системний трей (System Tray)",
+    "toggleMode": "Перемкнути: Залишок % або Використано %",
+    "resetTimer": "Час до скидання квоти",
+    "accountConnected": "Підключено через: {source} (натисніть для перевірки)",
+    "accountDisconnected": "Натисніть, щоб відкрити Antigravity або перевірити сесію",
+    "sessions": "Активні сесії Antigravity CLI / ACP",
+    "opacity": "Прозорість",
+    "language": "Оберіть мову"
+  },
+  "tray": {
+    "toggle": "Показати / Приховати монітор",
+    "top": "Завжди зверху (Увімк./Вимк.)",
+    "quit": "Закрити Antigravity Quota Monitor"
+  },
+  "tabs": {
+    "summary": "Квоти",
+    "models": "Моделі",
+    "info": "Інфо"
+  },
+  "mode": {
+    "showPrefix": "Показ:",
+    "remaining": "Залишок %",
+    "used": "Викор. %"
+  },
+  "status": {
+    "loading": "Завантаження квот Antigravity...",
+    "notConnected": "Не підключено",
+    "notSignedIn": "Не виконано вхід",
+    "missingInstall": "Antigravity відсутній",
+    "checkingSession": "Перевірка сесії Antigravity...",
+    "noQuotas": "Квоти не знайдено",
+    "noModels": "Моделі не знайдено",
+    "activeSessions": "{count} активних"
+  },
+  "onboarding": {
+    "missingTitle": "Потрібен Antigravity CLI / IDE",
+    "missingDesc": "На цьому комп'ютері не знайдено ні Antigravity CLI, ні Antigravity IDE. Будь ласка, встановіть Antigravity та увійдіть там.",
+    "missingAction": "Перевірити знову",
+    "loginTitle": "Увійдіть в Antigravity",
+    "loginDesc": "Цей віджет зчитує вашу локальну сесію Antigravity CLI або IDE напряму без окремих ключів OAuth.",
+    "loginAction": "Відкрити Antigravity / Перевірити"
+  },
+  "groups": {
+    "gemini": "Gemini (4 Argon & 3.8 Flash)",
+    "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "other": "Група квот"
+  },
+  "windows": {
+    "5h": "5-годинний ліміт (5h)",
+    "weekly": "Тижневий ліміт (Weekly)"
+  },
+  "mini": {
+    "gemini_5h": "Gem 5h",
+    "gemini_weekly": "Gem Тиж",
+    "claude_5h": "Claude 5h",
+    "claude_weekly": "Claude Тиж"
+  },
+  "families": {
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "Інші моделі"
+  },
+  "time": {
+    "none": "—",
+    "now": "зараз",
+    "daysHours": "{d}д {h}год",
+    "hoursMins": "{h}год {m}хв",
+    "mins": "{m}хв",
+    "secs": "{s}с"
+  },
+  "info": {
+    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutDesc": "Настільний віджет для моніторингу квот Google Antigravity CLI та IDE у реальному часі. Не містить вбудованих секретів OAuth або сторонніх серверів.",
+    "repoTitle": "Автор та репозиторій",
+    "authorLabel": "Автор:",
+    "githubLabel": "GitHub:",
+    "licenseLabel": "Ліцензія:",
+    "connTitle": "Деталі підключення",
+    "sourceLabel": "Джерело:",
+    "accountLabel": "Акаунт:",
+    "projectLabel": "Проєкт:",
+    "langTitle": "Мова / Language"
+  },
+  "errors": {
+    "ERR_NETWORK": "Помилка мережі під час з'єднання зі службами Google.",
+    "ERR_TOKEN_REFRESH": "Не вдалося оновити токен сесії OAuth.",
+    "ERR_INVALID_OAUTH": "Некоректна відповідь OAuth.",
+    "ERR_CRED_NOT_FOUND": "Збережену сесію не знайдено.",
+    "UNKNOWN": "Неочікувана помилка: {error}"
+  }
+}

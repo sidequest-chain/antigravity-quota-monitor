@@ -1,0 +1,100 @@
+{
+  "appTitle": "Antigravity Quota Monitor",
+  "brandTitle": "Antigravity Quota",
+  "tooltips": {
+    "refresh": "Atnaujinti dabar",
+    "pin": "Visada viršuje (Always on Top)",
+    "compact": "Kompaktiška juosta / Pilnas vaizdas",
+    "close": "Slėpti sistemos dėkle (System Tray)",
+    "toggleMode": "Perjungti: Liko % arba Panaudota %",
+    "resetTimer": "Laikas iki kvotos atstatymo",
+    "accountConnected": "Prisijungta per: {source} (spustelėkite patikrinti)",
+    "accountDisconnected": "Spustelėkite, kad atidarytumėte Antigravity arba patikrintumėte sesiją",
+    "sessions": "Aktyvios Antigravity CLI / ACP sesijos",
+    "opacity": "Permatomumas",
+    "language": "Pasirinkti kalbą"
+  },
+  "tray": {
+    "toggle": "Rodyti / Slėpti monitorių",
+    "top": "Visada viršuje (On/Off)",
+    "quit": "Uždaryti Antigravity Quota Monitor"
+  },
+  "tabs": {
+    "summary": "Kvotos",
+    "models": "Modeliai",
+    "info": "Info"
+  },
+  "mode": {
+    "showPrefix": "Rodyti:",
+    "remaining": "Liko %",
+    "used": "Naudota %"
+  },
+  "status": {
+    "loading": "Įkeliama Antigravity kvotų būsena...",
+    "notConnected": "Neprisijungta",
+    "notSignedIn": "Neprisijungta",
+    "missingInstall": "Antigravity nerasta",
+    "checkingSession": "Tikrinama Antigravity sesija...",
+    "noQuotas": "Kvotų nerasta",
+    "noModels": "Modelių nerasta",
+    "activeSessions": "{count} aktyvios"
+  },
+  "onboarding": {
+    "missingTitle": "Reikalinga Antigravity CLI / IDE",
+    "missingDesc": "Šiame kompiuteryje nerasta nei Antigravity CLI, nei Antigravity IDE. Įdiekite Antigravity ir prisijunkite ten.",
+    "missingAction": "Tikrinti dar kartą",
+    "loginTitle": "Prisijunkite prie Antigravity",
+    "loginDesc": "Šis valdiklis nuskaito jūsų vietinę Antigravity CLI arba IDE sesiją be atskirų OAuth raktų.",
+    "loginAction": "Atidaryti Antigravity / Tikrinti"
+  },
+  "groups": {
+    "gemini": "Gemini (4 Argon & 3.8 Flash)",
+    "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "other": "Kvotų grupė"
+  },
+  "windows": {
+    "5h": "5 valandų limitas (5h)",
+    "weekly": "Savaitės limitas (Weekly)"
+  },
+  "mini": {
+    "gemini_5h": "Gem 5h",
+    "gemini_weekly": "Gem Sav",
+    "claude_5h": "Claude 5h",
+    "claude_weekly": "Claude Sav"
+  },
+  "families": {
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "Kiti modeliai"
+  },
+  "time": {
+    "none": "—",
+    "now": "dabar",
+    "daysHours": "{d}d {h}val",
+    "hoursMins": "{h}val {m}m",
+    "mins": "{m}m",
+    "secs": "{s}s"
+  },
+  "info": {
+    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutDesc": "Darbalaukio valdiklis Google Antigravity CLI ir IDE kvotoms stebėti realiuoju laiku. Neturi įdiegtų OAuth paslapčių ar trečiųjų šalių serverių.",
+    "repoTitle": "Autorius ir saugykla",
+    "authorLabel": "Autorius:",
+    "githubLabel": "GitHub:",
+    "licenseLabel": "Licencija:",
+    "connTitle": "Ryšio informacija",
+    "sourceLabel": "Šaltinis:",
+    "accountLabel": "Paskyra:",
+    "projectLabel": "Projektas:",
+    "langTitle": "Kalba / Language"
+  },
+  "errors": {
+    "ERR_NETWORK": "Tinklo klaida bendraujant su Google paslaugomis.",
+    "ERR_TOKEN_REFRESH": "Nepavyko atnaujinti OAuth sesijos žetono.",
+    "ERR_INVALID_OAUTH": "Neteisingas OAuth atsakymas.",
+    "ERR_CRED_NOT_FOUND": "Išsaugota sesija nerasta.",
+    "UNKNOWN": "Netikėta klaida: {error}"
+  }
+}

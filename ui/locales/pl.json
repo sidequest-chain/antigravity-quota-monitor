@@ -1,0 +1,100 @@
+{
+  "appTitle": "Antigravity Quota Monitor",
+  "brandTitle": "Antigravity Quota",
+  "tooltips": {
+    "refresh": "Odśwież teraz",
+    "pin": "Zawsze na wierzchu (Always on Top)",
+    "compact": "Kompaktowy pasek / Pełny widok",
+    "close": "Ukryj w zasobniku systemowym (System Tray)",
+    "toggleMode": "Przełącz: Pozostało % vs Zużyto %",
+    "resetTimer": "Czas do resetu limitu",
+    "accountConnected": "Połączono przez: {source} (kliknij, aby sprawdzić)",
+    "accountDisconnected": "Kliknij, aby otworzyć Antigravity lub sprawdzić sesję",
+    "sessions": "Aktywne sesje Antigravity CLI / ACP",
+    "opacity": "Przezroczystość",
+    "language": "Wybierz język"
+  },
+  "tray": {
+    "toggle": "Pokaż / Ukryj monitor",
+    "top": "Zawsze na wierzchu (Wł./Wył.)",
+    "quit": "Zamknij Antigravity Quota Monitor"
+  },
+  "tabs": {
+    "summary": "Limity",
+    "models": "Modele",
+    "info": "Info"
+  },
+  "mode": {
+    "showPrefix": "Pokaż:",
+    "remaining": "Zostało %",
+    "used": "Zużyto %"
+  },
+  "status": {
+    "loading": "Ładowanie limitów Antigravity...",
+    "notConnected": "Niepołączony",
+    "notSignedIn": "Niezalogowany",
+    "missingInstall": "Brak Antigravity",
+    "checkingSession": "Sprawdzanie sesji Antigravity...",
+    "noQuotas": "Nie znaleziono limitów",
+    "noModels": "Nie znaleziono modeli",
+    "activeSessions": "{count} aktywne"
+  },
+  "onboarding": {
+    "missingTitle": "Wymagane Antigravity CLI / IDE",
+    "missingDesc": "Na tym komputerze nie znaleziono Antigravity CLI ani Antigravity IDE. Zainstaluj Antigravity i zaloguj się tam.",
+    "missingAction": "Sprawdź ponownie",
+    "loginTitle": "Zaloguj się w Antigravity",
+    "loginDesc": "Ten widżet odczytuje lokalną sesję Antigravity CLI lub IDE bez żądania osobnych kluczy OAuth.",
+    "loginAction": "Otwórz Antigravity / Sprawdź"
+  },
+  "groups": {
+    "gemini": "Gemini (4 Argon & 3.8 Flash)",
+    "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "other": "Grupa limitów"
+  },
+  "windows": {
+    "5h": "Limit 5-godzinny (5h)",
+    "weekly": "Limit tygodniowy (Weekly)"
+  },
+  "mini": {
+    "gemini_5h": "Gem 5h",
+    "gemini_weekly": "Gem Tydz",
+    "claude_5h": "Claude 5h",
+    "claude_weekly": "Claude Tydz"
+  },
+  "families": {
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "Inne modele"
+  },
+  "time": {
+    "none": "—",
+    "now": "teraz",
+    "daysHours": "{d}d {h}g",
+    "hoursMins": "{h}g {m}m",
+    "mins": "{m}m",
+    "secs": "{s}s"
+  },
+  "info": {
+    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutDesc": "Widżet pulpitu do monitorowania limitów Google Antigravity CLI i IDE w czasie rzeczywistym. Nie zawiera wbudowanych sekretów OAuth ani serwerów firm trzecich.",
+    "repoTitle": "Autor i repozytorium",
+    "authorLabel": "Autor:",
+    "githubLabel": "GitHub:",
+    "licenseLabel": "Licencja:",
+    "connTitle": "Szczegóły połączenia",
+    "sourceLabel": "Źródło:",
+    "accountLabel": "Konto:",
+    "projectLabel": "Projekt:",
+    "langTitle": "Język / Language"
+  },
+  "errors": {
+    "ERR_NETWORK": "Błąd sieci podczas łączenia z usługami Google.",
+    "ERR_TOKEN_REFRESH": "Nie udało się odświeżyć tokenu sesji OAuth.",
+    "ERR_INVALID_OAUTH": "Nieprawidłowa odpowiedź OAuth.",
+    "ERR_CRED_NOT_FOUND": "Nie znaleziono zapisanej sesji.",
+    "UNKNOWN": "Nieoczekiwany błąd: {error}"
+  }
+}

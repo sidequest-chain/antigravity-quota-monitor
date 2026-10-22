@@ -1,0 +1,100 @@
+{
+  "appTitle": "Antigravity Quota Monitor",
+  "brandTitle": "Antigravity Quota",
+  "tooltips": {
+    "refresh": "Jetzt aktualisieren",
+    "pin": "Immer im Vordergrund (Always on Top)",
+    "compact": "Kompaktleiste / Vollansicht",
+    "close": "In den Infobereich minimieren (System Tray)",
+    "toggleMode": "Wechseln: Verbleibend % vs Verbraucht %",
+    "resetTimer": "Zeit bis zum Zurücksetzen des Kontingents",
+    "accountConnected": "Verbunden über: {source} (Klicken zum Prüfen)",
+    "accountDisconnected": "Klicken, um Antigravity zu starten oder die Sitzung zu prüfen",
+    "sessions": "Aktive Antigravity CLI / ACP Sitzungen",
+    "opacity": "Deckkraft",
+    "language": "Sprache wählen"
+  },
+  "tray": {
+    "toggle": "Monitor ein-/ausblenden",
+    "top": "Immer im Vordergrund (Ein/Aus)",
+    "quit": "Antigravity Quota Monitor beenden"
+  },
+  "tabs": {
+    "summary": "Kontingente",
+    "models": "Modelle",
+    "info": "Info"
+  },
+  "mode": {
+    "showPrefix": "Ansicht:",
+    "remaining": "Übrig %",
+    "used": "Genutzt %"
+  },
+  "status": {
+    "loading": "Lade Antigravity-Kontingente...",
+    "notConnected": "Nicht verbunden",
+    "notSignedIn": "Nicht angemeldet",
+    "missingInstall": "Antigravity fehlt",
+    "checkingSession": "Prüfe Antigravity-Sitzung...",
+    "noQuotas": "Keine Kontingente gefunden",
+    "noModels": "Keine Modelle gefunden",
+    "activeSessions": "{count} aktiv"
+  },
+  "onboarding": {
+    "missingTitle": "Antigravity CLI / IDE erforderlich",
+    "missingDesc": "Auf diesem Computer wurde weder Antigravity CLI noch Antigravity IDE gefunden. Bitte installieren Sie Antigravity und melden Sie sich dort an.",
+    "missingAction": "Erneut prüfen",
+    "loginTitle": "In Antigravity anmelden",
+    "loginDesc": "Dieses Widget liest Ihre lokale Antigravity CLI- oder IDE-Sitzung direkt aus, ohne eigene OAuth-Schlüssel anzufordern.",
+    "loginAction": "Antigravity öffnen / Prüfen"
+  },
+  "groups": {
+    "gemini": "Gemini (4 Argon & 3.8 Flash)",
+    "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "other": "Kontingentgruppe"
+  },
+  "windows": {
+    "5h": "5-Stunden-Limit (5h)",
+    "weekly": "Wochenlimit (Weekly)"
+  },
+  "mini": {
+    "gemini_5h": "Gem 5h",
+    "gemini_weekly": "Gem Wo",
+    "claude_5h": "Claude 5h",
+    "claude_weekly": "Claude Wo"
+  },
+  "families": {
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "Weitere Modelle"
+  },
+  "time": {
+    "none": "—",
+    "now": "jetzt",
+    "daysHours": "{d}T {h}Std",
+    "hoursMins": "{h}Std {m}m",
+    "mins": "{m}m",
+    "secs": "{s}s"
+  },
+  "info": {
+    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutDesc": "Echtzeit-Desktop-Widget zur Überwachung von Google Antigravity CLI- und IDE-Kontingenten. Enthält keine eingebetteten OAuth-Geheimnisse und keine Drittanbieter-Server.",
+    "repoTitle": "Autor & Repository",
+    "authorLabel": "Autor:",
+    "githubLabel": "GitHub:",
+    "licenseLabel": "Lizenz:",
+    "connTitle": "Verbindungsdetails",
+    "sourceLabel": "Quelle:",
+    "accountLabel": "Konto:",
+    "projectLabel": "Projekt:",
+    "langTitle": "Sprache / Language"
+  },
+  "errors": {
+    "ERR_NETWORK": "Netzwerkfehler bei der Verbindung zu Google-Diensten.",
+    "ERR_TOKEN_REFRESH": "OAuth-Sitzungstoken konnte nicht aktualisiert werden.",
+    "ERR_INVALID_OAUTH": "Ungültige OAuth-Antwort.",
+    "ERR_CRED_NOT_FOUND": "Gespeicherte Sitzung nicht gefunden.",
+    "UNKNOWN": "Unerwarteter Fehler: {error}"
+  }
+}

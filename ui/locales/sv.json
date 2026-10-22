@@ -1,0 +1,100 @@
+{
+  "appTitle": "Antigravity Quota Monitor",
+  "brandTitle": "Antigravity Quota",
+  "tooltips": {
+    "refresh": "Uppdatera nu",
+    "pin": "Alltid överst (Always on Top)",
+    "compact": "Kompakt minirad / Helvy",
+    "close": "Minimera till systemfältet (System Tray)",
+    "toggleMode": "Växla: Kvar % vs Använt %",
+    "resetTimer": "Tid till kvotåterställning",
+    "accountConnected": "Ansluten via: {source} (klicka för att kontrollera)",
+    "accountDisconnected": "Klicka för att öppna Antigravity eller kontrollera sessionen",
+    "sessions": "Aktiva Antigravity CLI / ACP-sessioner",
+    "opacity": "Opacitet",
+    "language": "Välj språk"
+  },
+  "tray": {
+    "toggle": "Visa / Dölj monitor",
+    "top": "Alltid överst (På/Av)",
+    "quit": "Avsluta Antigravity Quota Monitor"
+  },
+  "tabs": {
+    "summary": "Kvoter",
+    "models": "Modeller",
+    "info": "Info"
+  },
+  "mode": {
+    "showPrefix": "Visa:",
+    "remaining": "Kvar %",
+    "used": "Använt %"
+  },
+  "status": {
+    "loading": "Laddar Antigravity-kvoter...",
+    "notConnected": "Ej ansluten",
+    "notSignedIn": "Ej inloggad",
+    "missingInstall": "Antigravity saknas",
+    "checkingSession": "Kontrollerar Antigravity-session...",
+    "noQuotas": "Inga kvoter hittades",
+    "noModels": "Inga modeller hittades",
+    "activeSessions": "{count} aktiva"
+  },
+  "onboarding": {
+    "missingTitle": "Antigravity CLI / IDE krävs",
+    "missingDesc": "Varken Antigravity CLI eller Antigravity IDE hittades på datorn. Installera Antigravity och logga in där först.",
+    "missingAction": "Kontrollera igen",
+    "loginTitle": "Logga in i Antigravity",
+    "loginDesc": "Denna widget läser din lokala Antigravity CLI- eller IDE-session direkt utan separata OAuth-nycklar.",
+    "loginAction": "Öppna Antigravity / Kontrollera"
+  },
+  "groups": {
+    "gemini": "Gemini (4 Argon & 3.8 Flash)",
+    "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "other": "Kvotgrupp"
+  },
+  "windows": {
+    "5h": "5-timmarsgräns (5h)",
+    "weekly": "Veckogräns (Weekly)"
+  },
+  "mini": {
+    "gemini_5h": "Gem 5h",
+    "gemini_weekly": "Gem V",
+    "claude_5h": "Claude 5h",
+    "claude_weekly": "Claude V"
+  },
+  "families": {
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "Andra modeller"
+  },
+  "time": {
+    "none": "—",
+    "now": "nu",
+    "daysHours": "{d}d {h}t",
+    "hoursMins": "{h}t {m}m",
+    "mins": "{m}m",
+    "secs": "{s}s"
+  },
+  "info": {
+    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutDesc": "Skrivbordswidget i realtid för att övervaka Google Antigravity CLI- och IDE-kvoter. Innehåller inga inbäddade OAuth-hemligheter eller tredjepartsservrar.",
+    "repoTitle": "Författare & Arkiv",
+    "authorLabel": "Författare:",
+    "githubLabel": "GitHub:",
+    "licenseLabel": "Licens:",
+    "connTitle": "Anslutningsdetaljer",
+    "sourceLabel": "Källa:",
+    "accountLabel": "Konto:",
+    "projectLabel": "Projekt:",
+    "langTitle": "Språk / Language"
+  },
+  "errors": {
+    "ERR_NETWORK": "Nätverksfel vid kommunikation med Googles tjänster.",
+    "ERR_TOKEN_REFRESH": "Kunde inte uppdatera OAuth-sessionstoken.",
+    "ERR_INVALID_OAUTH": "Ogiltigt OAuth-svar.",
+    "ERR_CRED_NOT_FOUND": "Sparad session hittades inte.",
+    "UNKNOWN": "Oväntat fel: {error}"
+  }
+}

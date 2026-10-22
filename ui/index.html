@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="appTitle"></title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="widget" class="widget">
+    <!-- Top Drag Bar -->
+    <header class="titlebar" data-tauri-drag-region>
+      <div class="brand" data-tauri-drag-region>
+        <span class="status-dot" id="statusDot"></span>
+        <span class="brand-title" data-i18n="brandTitle" data-tauri-drag-region></span>
+        <span class="tier-badge" id="tierBadge" data-tauri-drag-region>...</span>
+      </div>
+      <div class="controls">
+        <select id="langSelect" class="lang-select" data-i18n-title="tooltips.language"></select>
+        <button id="btnRefresh" class="icon-btn" data-i18n-title="tooltips.refresh">
+          <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none">
+            <path d="M21 2v6h-6"></path>
+            <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+            <path d="M3 22v-6h6"></path>
+            <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+          </svg>
+        </button>
+        <button id="btnPin" class="icon-btn active" data-i18n-title="tooltips.pin">
+          <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none">
+            <path d="M12 17v5"></path>
+            <path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"></path>
+          </svg>
+        </button>
+        <button id="btnCompact" class="icon-btn" data-i18n-title="tooltips.compact">
+          <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none">
+            <rect x="3" y="8" width="18" height="8" rx="2"></rect>
+          </svg>
+        </button>
+        <button id="btnClose" class="icon-btn close-btn" data-i18n-title="tooltips.close">
+          <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Compact Mini-Pill View (shown when in compact mode) -->
+    <div id="compactView" class="compact-view hidden" data-tauri-drag-region>
+      <div id="compactPills" class="compact-pills" data-tauri-drag-region></div>
+    </div>
+
+    <!-- Full Expanded View -->
+    <main id="fullView" class="full-view">
+      <div id="errorBanner" class="error-banner hidden"></div>
+
+      <!-- Unauthenticated / Prerequisite Card -->
+      <section id="loginView" class="login-view hidden">
+        <div class="login-card">
+          <div id="loginTitle" class="login-title"></div>
+          <p id="loginDesc" class="login-desc"></p>
+          <button id="btnGoogleLogin" class="google-btn">
+            <span id="loginBtnText"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Authenticated Content -->
+      <div id="authedContent" class="authed-content">
+        <div class="subbar">
+          <div class="tabs">
+            <button class="tab active" data-tab="summary" data-i18n="tabs.summary"></button>
+            <button class="tab" data-tab="models" data-i18n="tabs.models"></button>
+            <button class="tab" data-tab="info" data-i18n="tabs.info"></button>
+          </div>
+          <button id="btnToggleMode" class="mode-pill" data-i18n-title="tooltips.toggleMode">
+            <span data-i18n="mode.showPrefix"></span> <strong id="modeLabel"></strong>
+          </button>
+        </div>
+
+        <!-- Tab 1: Summary & Family Quotas -->
+        <section id="tabSummary" class="tab-content">
+          <div id="summaryList" class="quota-list">
+            <div class="skeleton" data-i18n="status.loading"></div>
+          </div>
+        </section>
+
+        <!-- Tab 2: Per-Model Quotas -->
+        <section id="tabModels" class="tab-content hidden">
+          <div id="modelsList" class="quota-list models-scroll"></div>
+        </section>
+
+        <!-- Tab 3: About / Info -->
+        <section id="tabInfo" class="tab-content hidden">
+          <div class="quota-list models-scroll">
+            <div class="quota-card">
+              <div class="card-title" data-i18n="info.aboutTitle"></div>
+              <div class="card-sub info-block" data-i18n="info.aboutDesc"></div>
+            </div>
+            <div class="quota-card">
+              <div class="card-title" data-i18n="info.repoTitle"></div>
+              <div class="card-sub info-block">
+                <div><strong data-i18n="info.authorLabel"></strong> sidequest-chain</div>
+                <div><strong data-i18n="info.githubLabel"></strong> sidequest-chain/antigravity-quota-monitor</div>
+                <div><strong data-i18n="info.licenseLabel"></strong> MIT (AS-IS)</div>
+              </div>
+            </div>
+            <div class="quota-card">
+              <div class="card-title" data-i18n="info.connTitle"></div>
+              <div class="card-sub info-block" id="infoSessionDetails"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-left">
+          <button id="btnSwitchAccount" class="account-btn">
+            <span id="userEmail" class="email-text"></span>
+            <span class="switch-hint">⇄</span>
+          </button>
+          <span class="sep">•</span>
+          <span id="sessionsCount" class="sessions-badge" data-i18n-title="tooltips.sessions"></span>
+        </div>
+        <div class="footer-right">
+          <input id="opacitySlider" type="range" min="45" max="100" value="92" data-i18n-title="tooltips.opacity" />
+          <span id="updatedAt" class="time-text">--:--</span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
