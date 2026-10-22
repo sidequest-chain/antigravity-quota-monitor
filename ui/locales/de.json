@@ -78,7 +78,7 @@
     "secs": "{s}s"
   },
   "info": {
-    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutTitle": "Antigravity Quota Monitor v0.1.1",
     "aboutDesc": "Echtzeit-Desktop-Widget zur Überwachung von Google Antigravity CLI- und IDE-Kontingenten. Enthält keine eingebetteten OAuth-Geheimnisse und keine Drittanbieter-Server.",
     "repoTitle": "Autor & Repository",
     "authorLabel": "Autor:",

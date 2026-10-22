@@ -1,6 +1,6 @@
 [package]
 name = "antigravity-quota-monitor"
-version = "0.1.0"
+version = "0.1.1"
 description = "Real-time Quota & Usage Monitor Widget for Google Antigravity CLI and IDE"
 authors = ["sidequest-chain <162595533+sidequest-chain@users.noreply.github.com>"]
 license = "MIT"

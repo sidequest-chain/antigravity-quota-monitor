@@ -78,7 +78,7 @@
     "secs": "{s}s"
   },
   "info": {
-    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutTitle": "Antigravity Quota Monitor v0.1.1",
     "aboutDesc": "Reaaliaikainen työpöytäohjelma Google Antigravity CLI- ja IDE-kiintiöiden seurantaan. Ei sisällä kiinteitä OAuth-salaisuuksia eikä kolmannen osapuolen palvelimia.",
     "repoTitle": "Tekijä ja arkisto",
     "authorLabel": "Tekijä:",

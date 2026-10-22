@@ -78,7 +78,7 @@
     "secs": "{s}s"
   },
   "info": {
-    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutTitle": "Antigravity Quota Monitor v0.1.1",
     "aboutDesc": "Darbalaukio valdiklis Google Antigravity CLI ir IDE kvotoms stebėti realiuoju laiku. Neturi įdiegtų OAuth paslapčių ar trečiųjų šalių serverių.",
     "repoTitle": "Autorius ir saugykla",
     "authorLabel": "Autorius:",

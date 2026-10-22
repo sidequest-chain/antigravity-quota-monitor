@@ -78,7 +78,7 @@
     "secs": "{s}s"
   },
   "info": {
-    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutTitle": "Antigravity Quota Monitor v0.1.1",
     "aboutDesc": "Skrivbordswidget i realtid för att övervaka Google Antigravity CLI- och IDE-kvoter. Innehåller inga inbäddade OAuth-hemligheter eller tredjepartsservrar.",
     "repoTitle": "Författare & Arkiv",
     "authorLabel": "Författare:",

@@ -78,7 +78,7 @@
     "secs": "{s}s"
   },
   "info": {
-    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutTitle": "Antigravity Quota Monitor v0.1.1",
     "aboutDesc": "Reaalajas töölauavidin Google Antigravity CLI ja IDE kvootide jälgimiseks. Ei sisalda sissekirjutatud OAuth saladusi ega kolmandate osapoolte servereid.",
     "repoTitle": "Autor & Repositoorium",
     "authorLabel": "Autor:",

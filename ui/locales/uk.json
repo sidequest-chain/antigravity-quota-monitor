@@ -78,7 +78,7 @@
     "secs": "{s}с"
   },
   "info": {
-    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutTitle": "Antigravity Quota Monitor v0.1.1",
     "aboutDesc": "Настільний віджет для моніторингу квот Google Antigravity CLI та IDE у реальному часі. Не містить вбудованих секретів OAuth або сторонніх серверів.",
     "repoTitle": "Автор та репозиторій",
     "authorLabel": "Автор:",

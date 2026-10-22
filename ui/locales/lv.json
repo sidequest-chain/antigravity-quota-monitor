@@ -78,7 +78,7 @@
     "secs": "{s}s"
   },
   "info": {
-    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutTitle": "Antigravity Quota Monitor v0.1.1",
     "aboutDesc": "Reāllaika darbvirsmas logrīks Google Antigravity CLI un IDE kvotu uzraudzībai. Nesatur iebūvētus OAuth noslēpumus vai trešo pušu serverus.",
     "repoTitle": "Autors un repozitorijs",
     "authorLabel": "Autors:",

@@ -78,7 +78,7 @@
     "secs": "{s}s"
   },
   "info": {
-    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutTitle": "Antigravity Quota Monitor v0.1.1",
     "aboutDesc": "Real-time desktop widget for tracking Google Antigravity CLI and IDE quotas. Contains zero embedded OAuth secrets and zero third-party servers.",
     "repoTitle": "Author & Repository",
     "authorLabel": "Author:",

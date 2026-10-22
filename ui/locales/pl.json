@@ -78,7 +78,7 @@
     "secs": "{s}s"
   },
   "info": {
-    "aboutTitle": "Antigravity Quota Monitor v0.1.0",
+    "aboutTitle": "Antigravity Quota Monitor v0.1.1",
     "aboutDesc": "Widżet pulpitu do monitorowania limitów Google Antigravity CLI i IDE w czasie rzeczywistym. Nie zawiera wbudowanych sekretów OAuth ani serwerów firm trzecich.",
     "repoTitle": "Autor i repozytorium",
     "authorLabel": "Autor:",
