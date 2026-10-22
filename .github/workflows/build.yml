@@ -39,7 +39,7 @@ jobs:
         env:
           RUSTFLAGS: "--remap-path-prefix ${{ github.workspace }}=/app -C link-arg=/PDBALTPATH:%_PDB%"
         run: |
-          cargo build --release
+          cargo build --release --locked
 
       - name: Package portable executable and SHA-256 checksum
         shell: pwsh

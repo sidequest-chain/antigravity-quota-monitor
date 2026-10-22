@@ -1,6 +1,5 @@
 /target
 /.cargo
-Cargo.lock
 DESCRIPTION.txt
 *.pdb
 *.log
