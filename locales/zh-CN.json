@@ -1,0 +1,116 @@
+{
+  "appTitle": "Antigravity 额度监视器",
+  "brandTitle": "AGY 额度",
+  "tooltips": {
+    "refresh": "立即刷新",
+    "pin": "始终置顶",
+    "compact": "切换精简和完整视图",
+    "close": "最小化到系统托盘",
+    "toggleMode": "切换剩余或已用百分比",
+    "resetTimer": "距离额度重置的时间",
+    "accountConnected": "登录来源：{source}（点击重新检测）",
+    "accountDisconnected": "点击重新检测登录状态",
+    "sessions": "活跃的 Antigravity CLI 或 ACP 会话",
+    "opacity": "窗口不透明度",
+    "language": "选择语言"
+  },
+  "tray": {
+    "toggle": "显示或隐藏额度监视器",
+    "top": "切换始终置顶",
+    "quit": "退出 Antigravity 额度监视器"
+  },
+  "tabs": {
+    "summary": "额度",
+    "models": "各模型额度",
+    "info": "信息"
+  },
+  "mode": {
+    "showPrefix": "显示：",
+    "remaining": "剩余 %",
+    "used": "已用 %"
+  },
+  "status": {
+    "loading": "正在查询 Antigravity 额度…",
+    "notConnected": "未连接",
+    "notSignedIn": "未登录",
+    "missingInstall": "未安装",
+    "freeTier": "免费版",
+    "checkingSession": "正在检测 Antigravity 登录状态…",
+    "noQuotas": "暂无额度数据",
+    "noModels": "未找到模型",
+    "activeSessions": "{count} 个活跃会话"
+  },
+  "onboarding": {
+    "missingTitle": "请先安装 Antigravity CLI 或 IDE",
+    "missingDesc": "检测不到 Antigravity CLI 或 IDE。请安装并登录其中一个客户端。",
+    "missingAction": "重新检测",
+    "loginTitle": "请登录 Antigravity",
+    "loginDesc": "请先在 Antigravity CLI 或 IDE 中登录 Google 账号，再回来重新检测。",
+    "loginAction": "打开 Antigravity 或重新检测"
+  },
+  "groups": {
+    "gemini": "Gemini（4 系列和 3.8 Flash）",
+    "claude_gpt": "Claude（Opus 5.5 和 Sonnet 5.5）",
+    "geminiShort": "Gemini 模型组",
+    "claudeShort": "Claude / GPT 模型组",
+    "other": "其他额度组"
+  },
+  "windows": {
+    "5h": "5 小时额度",
+    "weekly": "7 天额度"
+  },
+  "mini": {
+    "quotaTitle": "AGY 额度",
+    "hoverHint": "悬停查看详情",
+    "fiveHourTag": "5h",
+    "weekTag": "周",
+    "gemini_5h": "Gemini 5 小时",
+    "gemini_weekly": "Gemini 周",
+    "claude_5h": "Claude 5 小时",
+    "claude_weekly": "Claude 周"
+  },
+  "windowTags": {
+    "5h": "5小时",
+    "weekly": "7天"
+  },
+  "families": {
+    "gemini_4_carbon": "Gemini 4 Carbon",
+    "gemini_4_argon": "Gemini 4 Argon",
+    "gemini_4_hydrogen": "Gemini 4 Hydrogen",
+    "gemini_3_8_flash": "Gemini 3.8 Flash",
+    "claude_opus": "Claude Opus 5.5",
+    "claude_sonnet": "Claude Sonnet 5.5",
+    "other": "其他模型"
+  },
+  "time": {
+    "none": "—",
+    "now": "现在",
+    "daysHours": "{d}天{h}时",
+    "hoursMins": "{h}时{m}分",
+    "mins": "{m}分",
+    "secs": "{s}秒"
+  },
+  "info": {
+    "aboutTitle": "Antigravity 额度监视器 v0.3.1",
+    "aboutDesc": "在 Windows 任务栏查看 Google Antigravity CLI 和 IDE 的模型额度及重置时间。程序使用本机已有的登录会话向 Google 查询额度。",
+    "repoTitle": "作者与源码",
+    "authorLabel": "作者：",
+    "githubLabel": "GitHub：",
+    "licenseLabel": "许可证：",
+    "licenseValue": "MIT（按现状提供）",
+    "connTitle": "连接详情",
+    "sourceLabel": "来源：",
+    "accountLabel": "账号：",
+    "projectLabel": "项目：",
+    "autostartOn": "登录时启动：已开启",
+    "autostartOff": "登录时启动：已关闭",
+    "langTitle": "语言"
+  },
+  "errors": {
+    "ERR_NETWORK": "连接 Google 服务时发生网络错误。",
+    "ERR_TOKEN_REFRESH": "无法刷新登录会话。",
+    "ERR_INVALID_OAUTH": "Google 返回的登录响应无效。",
+    "ERR_CRED_NOT_FOUND": "找不到已保存的登录会话。",
+    "UNKNOWN": "出现错误：{error}"
+  }
+}

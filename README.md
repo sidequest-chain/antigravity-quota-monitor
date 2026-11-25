@@ -38,7 +38,9 @@ Every 5 minutes, a single-threaded background `tokio` worker queries `loadCodeAs
 
 The UI consists of two native Win32 windows in `src/ui_win32.rs`:
 - `AGYPillNativeWnd` (`124x38 px` logical): A top-level `WS_POPUP | WS_EX_TOPMOST | WS_EX_LAYERED` window owned by `Shell_TrayWnd` (`GWLP_HWNDPARENT`) so DWM draws it above the Windows 11 XAML taskbar layer. It samples the taskbar color via `GetPixel` and flips between `5h` and `Wk` views every 10 seconds.
-- `AGYFlyoutNativeWnd` (`368x440 px` logical): Opens above the taskbar on hover. It renders side-by-side `5h` and `7d` cards for Gemini and Claude, a scrollable 2-column grid of per-model quotas, header buttons (`Left %` / `Used %` toggle, 12-language menu via `TrackPopupMenu`, Autostart `⚡`, Info drawer `ⓘ`, Refresh `↻`, Quit `⏻`), and a footer with an account switcher, active session count, and window opacity slider.
+- `AGYFlyoutNativeWnd` (`368x440 px` logical): Opens above the taskbar on hover. It renders side-by-side `5h` and `7d` cards for Gemini and Claude, a scrollable 2-column grid of per-model quotas, header buttons (`Left %` / `Used %` toggle, language menu via `TrackPopupMenu`, Autostart `⚡`, Info drawer `ⓘ`, Refresh `↻`, Quit `⏻`), and a footer with an account switcher, active session count, and window opacity slider.
+
+To switch to Simplified Chinese, open the language menu in the flyout and select `简体中文`.
 
 ## Technical Details
 
@@ -54,7 +56,7 @@ The UI consists of two native Win32 windows in `src/ui_win32.rs`:
 ├── src/
 │   ├── main.rs                # Credential readers, binary OAuth scanner, API client, taskbar geometry, and autostart
 │   └── ui_win32.rs            # Win32 window classes, SDF 2D canvas, ClearType text, and Flyout UI
-└── locales/                   # JSON language packs (ET, EN-US, EN-GB, LV, LT, FI, DE, SV, PL, FR, ES, UK)
+└── locales/                   # JSON language packs (ET, EN-US, EN-GB, ZH-CN, LV, LT, FI, DE, SV, PL, FR, ES, UK)
 ```
 
 ## Installation and Removal

@@ -259,6 +259,7 @@ const LOCALE_LIST: &[(&str, &str, &str)] = &[
         "English (UK)",
         include_str!("../locales/en-GB.json"),
     ),
+    ("zh-CN", "简体中文", include_str!("../locales/zh-CN.json")),
     ("lv", "Latviešu (LV)", include_str!("../locales/lv.json")),
     ("lt", "Lietuvių (LT)", include_str!("../locales/lt.json")),
     ("fi", "Suomi (FI)", include_str!("../locales/fi.json")),
@@ -737,8 +738,12 @@ struct FontSet {
 }
 
 impl FontSet {
-    fn new(scale: f32) -> Self {
-        let face_ui = to_wide("Segoe UI");
+    fn new(scale: f32, locale: &str) -> Self {
+        let face_ui = to_wide(if locale == "zh-CN" {
+            "Microsoft YaHei UI"
+        } else {
+            "Segoe UI"
+        });
         let make = |px: f32, weight: i32| unsafe {
             CreateFontW(
                 -(px * scale).round() as i32,
@@ -887,9 +892,13 @@ fn paint_pill_window(hwnd: isize, ui: &UiShared) {
             canvas.stroke_round_rect(pad, pad, pw, ph, 7.5 * scale, 1.0 * scale, 0x94A3B8, 60);
         }
 
-        let fonts = FontSet::new(scale);
+        let fonts = FontSet::new(scale, &ui.current_locale);
         let win_key = if ui.pill_mode_weekly { "weekly" } else { "5h" };
-        let win_tag = if ui.pill_mode_weekly { "Wk" } else { "5h" };
+        let win_tag = ui.t(if ui.pill_mode_weekly {
+            "mini.weekTag"
+        } else {
+            "mini.fiveHourTag"
+        });
 
         if let Some(ref snap) = ui.last_snapshot.as_ref().filter(|s| s.authenticated) {
             let mut min_rem = 1.0_f64;
@@ -1002,7 +1011,7 @@ fn paint_pill_window(hwnd: isize, ui: &UiShared) {
             let text_left = 18.0 * scale;
             let text_w = w as f32 - text_left - 6.0 * scale;
             canvas.draw_text(
-                "AGY Quota",
+                &ui.t("mini.quotaTitle"),
                 text_left,
                 5.0 * scale,
                 text_w,
@@ -1012,7 +1021,7 @@ fn paint_pill_window(hwnd: isize, ui: &UiShared) {
                 DT_LEFT | DT_VCENTER | DT_SINGLELINE,
             );
             canvas.draw_text(
-                "Hover...",
+                &ui.t("mini.hoverHint"),
                 text_left,
                 19.0 * scale,
                 text_w,
@@ -1122,7 +1131,7 @@ fn paint_flyout_window(hwnd: isize, ui: &mut UiShared) {
         };
 
         ui.hit_boxes.clear();
-        let fonts = FontSet::new(scale);
+        let fonts = FontSet::new(scale, &ui.current_locale);
         let show_rem = ui.show_remaining;
         let opacity = ui.window_opacity;
         let snap_opt = ui.last_snapshot.clone();
@@ -1177,7 +1186,7 @@ fn paint_flyout_window(hwnd: isize, ui: &mut UiShared) {
                 s.paid_tier_name
                     .clone()
                     .or_else(|| s.tier_name.clone())
-                    .unwrap_or_else(|| "Free".to_string())
+                    .unwrap_or_else(|| ui.t("status.freeTier"))
             }
         } else {
             "...".to_string()
@@ -1670,8 +1679,8 @@ fn paint_dashboard_view(
     let hero_h = 88.0 * scale;
 
     let groups = [
-        ("gemini", ui.t("groups.gemini"), pad_x),
-        ("claude_gpt", ui.t("groups.claude_gpt"), pad_x + card_w + gap),
+        ("gemini", ui.t("groups.geminiShort"), pad_x),
+        ("claude_gpt", ui.t("groups.claudeShort"), pad_x + card_w + gap),
     ];
 
     for (gkey, gtitle, gx) in groups {
@@ -1687,15 +1696,8 @@ fn paint_dashboard_view(
             42,
         );
 
-        let short_title = if gkey == "gemini" {
-            "Gemini (4 & 3.8 Flash)"
-        } else if gkey == "claude_gpt" {
-            "Claude (Opus & Sonnet)"
-        } else {
-            &gtitle
-        };
         canvas.draw_text(
-            short_title,
+            &gtitle,
             gx + 8.0 * scale,
             top_y + 5.0 * scale,
             card_w - 16.0 * scale,
@@ -1716,19 +1718,20 @@ fn paint_dashboard_view(
 
         let sub_w = (card_w - 20.0 * scale) * 0.5;
         let sub_cols = [
-            ("5h", b_5h, gx + 8.0 * scale),
-            ("7d", b_wk, gx + 12.0 * scale + sub_w),
+            (ui.t("windowTags.5h"), b_5h, gx + 8.0 * scale),
+            (ui.t("windowTags.weekly"), b_wk, gx + 12.0 * scale + sub_w),
         ];
 
         for (wlabel, b_opt, sx) in sub_cols {
             let sy = top_y + 24.0 * scale;
+            let badge_w = 34.0 * scale;
             // Window pill badge
-            canvas.fill_round_rect(sx, sy, 22.0 * scale, 14.0 * scale, 4.0 * scale, 0x1E293B, 255);
+            canvas.fill_round_rect(sx, sy, badge_w, 14.0 * scale, 4.0 * scale, 0x1E293B, 255);
             canvas.draw_text(
-                wlabel,
+                &wlabel,
                 sx,
                 sy,
-                22.0 * scale,
+                badge_w,
                 14.0 * scale,
                 fonts.badge,
                 0x38BDF8,
@@ -1968,10 +1971,11 @@ fn paint_info_view(
         format!("{} {}", ui.t("info.sourceLabel"), src),
         format!("{} {}", ui.t("info.accountLabel"), email),
         format!("{} {}", ui.t("info.projectLabel"), proj),
-        format!(
-            "Autostart: {}",
-            if ui.autostart_enabled { "ON" } else { "OFF" }
-        ),
+        ui.t(if ui.autostart_enabled {
+            "info.autostartOn"
+        } else {
+            "info.autostartOff"
+        }),
     ];
     for (i, line) in info_lines.iter().enumerate() {
         canvas.draw_text(
@@ -1993,7 +1997,7 @@ fn paint_info_view(
     canvas.fill_round_rect(pad_x, cy, content_w, c2_h, 8.0 * scale, 0x131B2E, 235);
     canvas.stroke_round_rect(pad_x, cy, content_w, c2_h, 8.0 * scale, 1.0 * scale, 0x94A3B8, 42);
     canvas.draw_text(
-        concat!("Antigravity Quota Monitor v", env!("CARGO_PKG_VERSION")),
+        &format!("{} v{}", ui.t("appTitle"), env!("CARGO_PKG_VERSION")),
         pad_x + 10.0 * scale,
         cy + 8.0 * scale,
         content_w - 20.0 * scale,
@@ -2035,7 +2039,7 @@ fn paint_info_view(
             "{} sidequest-chain/antigravity-quota-monitor",
             ui.t("info.githubLabel")
         ),
-        format!("{} MIT (AS-IS)", ui.t("info.licenseLabel")),
+        format!("{} {}", ui.t("info.licenseLabel"), ui.t("info.licenseValue")),
     ];
     for (i, line) in repo_lines.iter().enumerate() {
         canvas.draw_text(
@@ -2652,6 +2656,7 @@ unsafe extern "system" fn flyout_wnd_proc(
                             if let Ok(mut ui) = ui_arc.lock() {
                                 ui.current_locale = chosen;
                                 ui.persist_state();
+                                InvalidateRect(ui.pill_hwnd, std::ptr::null(), 0);
                             }
                             InvalidateRect(hwnd, std::ptr::null(), 0);
                         }

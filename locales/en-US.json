@@ -34,6 +34,7 @@
     "notConnected": "Not connected",
     "notSignedIn": "Not signed in",
     "missingInstall": "Antigravity missing",
+    "freeTier": "Free",
     "checkingSession": "Checking Antigravity session...",
     "noQuotas": "No quotas found",
     "noModels": "No models found",
@@ -50,6 +51,8 @@
   "groups": {
     "gemini": "Gemini (4 & 3.8 Flash)",
     "claude_gpt": "Claude (Opus 5.5 & Sonnet 5.5)",
+    "geminiShort": "Gemini (4 & 3.8 Flash)",
+    "claudeShort": "Claude (Opus & Sonnet)",
     "other": "Quota Group"
   },
   "windows": {
@@ -57,10 +60,18 @@
     "weekly": "Weekly Limit (7d)"
   },
   "mini": {
+    "quotaTitle": "AGY Quota",
+    "hoverHint": "Hover...",
+    "fiveHourTag": "5h",
+    "weekTag": "Wk",
     "gemini_5h": "Gem 5h",
     "gemini_weekly": "Gem Wk",
     "claude_5h": "Claude 5h",
     "claude_weekly": "Claude Wk"
+  },
+  "windowTags": {
+    "5h": "5h",
+    "weekly": "7d"
   },
   "families": {
     "gemini_4_carbon": "Gemini 4 Carbon",
@@ -86,10 +97,13 @@
     "authorLabel": "Author:",
     "githubLabel": "GitHub:",
     "licenseLabel": "License:",
+    "licenseValue": "MIT (AS-IS)",
     "connTitle": "Connection Details",
     "sourceLabel": "Source:",
     "accountLabel": "Account:",
     "projectLabel": "Project:",
+    "autostartOn": "Autostart: ON",
+    "autostartOff": "Autostart: OFF",
     "langTitle": "Language"
   },
   "errors": {
